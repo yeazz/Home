@@ -1,17 +1,15 @@
-// Start the table once
-Document.write("<table border='1' cellpadding='10'>");
-Document.write("<tr><th>Number 1</th><th>Operator</th><th>Number 2</th><th>Result</th></tr>");
+// calculator.js
 
 while (true) {
   // Prompt for first number
-  let xStr = prompt("Enter the first number (x):");
-  if (xStr === null) break;
-  let x = parseFloat(xStr);
+  let x = prompt("Enter the first number (x):");
+  if (x === null) break; // User clicked Cancel
+  x = parseFloat(x);
 
   // Prompt for second number
-  let yStr = prompt("Enter the second number (y):");
-  if (yStr === null) break;
-  let y = parseFloat(yStr);
+  let y = prompt("Enter the second number (y):");
+  if (y === null) break;
+  y = parseFloat(y);
 
   // Prompt for operator
   let operator = prompt("Enter an operator (+, -, *, /, %):");
@@ -19,34 +17,27 @@ while (true) {
 
   let result;
 
-  // Validate inputs
-  if (isNaN(x) || isNaN(y)) {
-    result = "Error: One or both inputs are not valid numbers.";
-  } else {
-    switch (operator) {
-      case "+":
-        result = x + y;
-        break;
-      case "-":
-        result = x - y;
-        break;
-      case "*":
-        result = x * y;
-        break;
-      case "/":
-        result = y !== 0 ? x / y : "Error: Division by zero";
-        break;
-      case "%":
-        result = y !== 0 ? x % y : "Error: Modulus by zero";
-        break;
-      default:
-        result = "Error: Invalid operator";
-    }
+  // Perform calculation
+  switch (operator) {
+    case "+":
+      result = x + y;
+      break;
+    case "-":
+      result = x - y;
+      break;
+    case "*":
+      result = x * y;
+      break;
+    case "/":
+      result = y !== 0 ? x / y : "Error: Division by zero";
+      break;
+    case "%":
+      result = y !== 0 ? x % y : "Error: Modulus by zero";
+      break;
+    default:
+      result = "Invalid operator";
   }
 
-  // Display the result in a table row
-  Document.write("<tr><td>" + xStr + "</td><td>" + operator + "</td><td>" + yStr + "</td><td>" + result + "</td></tr>");
+  // Show result
+  alert(`Result: ${result}`);
 }
-
-// Close the table after loop ends
-Document.write("</table>");
