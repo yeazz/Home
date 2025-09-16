@@ -1,27 +1,25 @@
-// Start the table once
+// Start the main results table
 document.write("<table border='1' cellpadding='10'>");
 document.write("<tr><th>Number 1</th><th>Operator</th><th>Number 2</th><th>Result</th></tr>");
 
+let validResults = []; // Store only numeric results
+
 while (true) {
-  // Prompt for first number
   let xStr = prompt("Enter the first number (x):");
   if (xStr === null) break;
   let x = parseFloat(xStr);
 
-  // Prompt for second number
   let yStr = prompt("Enter the second number (y):");
   if (yStr === null) break;
   let y = parseFloat(yStr);
 
-  // Prompt for operator
   let operator = prompt("Enter an operator (+, -, *, /, %):");
   if (operator === null) break;
 
   let result;
 
-  // Validate inputs
   if (isNaN(x) || isNaN(y)) {
-    result = "Error: One or both inputs are not valid numbers.";
+    result = "Error: Invalid number input";
   } else {
     switch (operator) {
       case "+":
@@ -44,9 +42,30 @@ while (true) {
     }
   }
 
-  // Display the result in a table row
+  // Store valid numeric results
+  if (typeof result === "number" && !isNaN(result)) {
+    validResults.push(result);
+  }
+
+  // Display each row
   document.write("<tr><td>" + xStr + "</td><td>" + operator + "</td><td>" + yStr + "</td><td>" + result + "</td></tr>");
 }
 
-// Close the table after loop ends
 document.write("</table>");
+
+// 🧮 Calculate summary statistics
+if (validResults.length > 0) {
+  let total = validResults.reduce((sum, val) => sum + val, 0);
+  let min = Math.min(...validResults);
+  let max = Math.max(...validResults);
+  let avg = total / validResults.length;
+
+  // Display summary table
+  document.write("<br><h3>Summary of Valid Results</h3>");
+  document.write("<table border='1' cellpadding='10'>");
+  document.write("<tr><th>Minimum</th><th>Maximum</th><th>Average</th><th>Total</th></tr>");
+  document.write("<tr><td>" + min + "</td><td>" + max + "</td><td>" + avg.toFixed(2) + "</td><td>" + total + "</td></tr>");
+  document.write("</table>");
+} else {
+  document.write("<p>No valid results to summarize.</p>");
+}
